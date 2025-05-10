@@ -24,6 +24,14 @@ CUBE_KEYS = {
     "q": [5, False],
 }
 VEC_KEYS = {"w": [2, False], "d": [1, False], "s": [0, False], "a": [3, False]}
+KEY_MAPS = {
+    pygame.K_w: "w",
+    pygame.K_e: "e",
+    pygame.K_q: "q",
+    pygame.K_a: "a",
+    pygame.K_s: "s",
+    pygame.K_d: "d",
+}
 mouse_pos = cube.Cube()
 pygame.init()
 clock = pygame.time.Clock()
@@ -167,10 +175,9 @@ def update():
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            print(event.unicode)
-            print(event)
-            if event.unicode in game.keys.keys():
-                if game.user_move(game.side_iters[game.keys[event.unicode][0]]):
+            key_unicode = KEY_MAPS.get(event.key, "")
+            if key_unicode in game.keys.keys():
+                if game.user_move(game.side_iters[game.keys[key_unicode][0]]):
                     anim_frame = 0
             elif event.unicode in "0123456789" and event.unicode:
                 switch_to_board(int(event.unicode))
